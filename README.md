@@ -29,6 +29,7 @@ Semana 1:
 (Senior)
 - [✓] Realización de los commits dentro del repositorio de
 GitHub (Todos)
+
 Semana 2:
 - [-] Realización del pseudo-codigo para integración
 completa del proyecto a realizar. (Senior)
@@ -38,6 +39,7 @@ funciones completas. (Mids)
 errores y optimización de entradas y salidas. (Juniors)
 - [-] Validación de las ramas creadas para su integración
 dentro del código principal. (Senior)
+
 Semana 3:
 - [-] Realización de actualizaciones dentro del programa
 para futuras versiones. (Mids)
@@ -46,12 +48,14 @@ del programa. (Juniors)
 - [-] Ajuste de ramas nuevas para validación de las
 funciones dentro de la rama principal y validar un
 funcionamiento correcto. (Senior)
+
 Semana 4:
 - [-] Reajuste de nuevos comandos para parches dentro de
 las versiones anteriores. (Mids)
 - [-] Simplificar funciones dentro del código para un
 funcionamiento más optimo. (Junior)
 - [-] Integración para una versión final del código. (Senior)
+
 Semana 5:
 - [-] Ultimas actualizaciones dentro del programa. (Mids)
 - [-] Revisión a detalle del código completo por posibles
