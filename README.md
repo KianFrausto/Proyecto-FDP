@@ -32,6 +32,9 @@ mismos.
 mantenimiento de los mismos en el caso de ingresar
 más material a los ya existentes o una reducción de
 ellos.
+
+# Criterios de exito
+
 # Reglas del negocio
 
 # Requerimientos Funcionales
