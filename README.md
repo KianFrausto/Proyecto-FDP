@@ -19,7 +19,7 @@
 
 # Diagrama de flujo
 
-![Imagen3_ALT][https://github.com/KianFrausto/Proyecto-FDP/blob/2299525c5aa287c3a86f42e48757d7e374126775/docs/Inventario.jpg]
+![Imagen_ALT](https://github.com/KianFrausto/Proyecto-FDP/blob/5fdb9eaf53f92f6752952d22de63def9588e3a54/docs/Inventario.png)
 
 # Plan de trabajo
 Semana 1:
