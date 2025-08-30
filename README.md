@@ -10,7 +10,28 @@
 - Oscar Gabriel Reyes Delgado (Mid)
 
 # Contexto y Problema
-
+## Escenario:
+El escenario planteado para nuestro proyecto es dentro
+de una empresa para la realización de un programa con el
+fin de que facilitemos las actividades relacionadas con la
+toma de un inventario, como facilitar los datos
+ingresados dentro de una lista para el conocimiento de
+los materiales disponibles, su cantidad actual, el costo de
+cada uno y el presupuesto total de todos y cada uno de
+ellos, con el fin de hacer todo de una manera fácil de
+entender, concisa y práctica.
+## Problemas a resolver:
+Nuestra problemática a resolver son las siguientes:
+- Captura de datos de manera fácil y optima para
+registrarlos dentro de una lista para un conocimiento
+de los mismos.
+- Un costo total dentro de todos los materiales
+listados para una cotización y control de los
+mismos.
+- Mostrar los datos capturados de forma clara para el
+mantenimiento de los mismos en el caso de ingresar
+más material a los ya existentes o una reducción de
+ellos.
 # Reglas del negocio
 
 # Requerimientos Funcionales
