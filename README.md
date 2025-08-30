@@ -34,8 +34,18 @@ más material a los ya existentes o una reducción de
 ellos.
 
 # Criterios de exito
+- El programa debe permitir la captura de datos de manera sencilla y sin errores.
+-La lista de inventario debe mostrarse de forma clara y organizada.
+- El cálculo del costo total de los materiales debe ser preciso.
+- El sistema debe ser fácil de usar para cualquier usuario sin necesidad de conocimientos avanzados de programación.
+- El programa debe permitir actualizar, añadir o reducir materiales en el inventario sin afectar los registros previos.
 
 # Reglas del negocio
+- Todos los materiales deben registrarse con nombre, cantidad y costo obligatoriamente.
+- No se permitirá dejar campos vacíos en el registro de materiales.
+- El costo total se calculará automáticamente a partir de los datos ingresados, sin modificaciones manuales.
+- El usuario solo podrá interactuar mediante las opciones que muestre el menú.
+- Los materiales deben mostrarse siempre en la lista antes de realizar cualquier modificación o consulta.
 
 # Requerimientos Funcionales
 Los requerimientos funcionales que el programa requiere son:
