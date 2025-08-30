@@ -33,7 +33,7 @@ mantenimiento de los mismos en el caso de ingresar
 más material a los ya existentes o una reducción de
 ellos.
 
-# Criterios de exito
+## Criterios de exito
 - El programa debe permitir la captura de datos de manera sencilla y sin errores.
 -La lista de inventario debe mostrarse de forma clara y organizada.
 - El cálculo del costo total de los materiales debe ser preciso.
