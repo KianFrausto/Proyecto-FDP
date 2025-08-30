@@ -48,6 +48,23 @@ inventario.
 - Limitarse a las opciones del menu y señalar el no apego a ellas por parte del usuario.
 
 # Diseño de entradas y salidas
+Diseño de entradas y salidas:
+Entradas:
+- Nombre del material
+- Tipo que especifica el material
+- Cantidad del material
+- Costo del material
+- Valores correctos de los materiales (Nombre,
+cantidad y costo)
+- Guardar los datos ingresados
+- Opciones de cancelar el programa
+Salidas:
+- Listado de nombre, tipo de material, cantidad y costo
+de cada uno
+- Cotizar el costo total de todos los materiales
+- Mostrar mensajes en caso de ingresar valores no
+permitidos
+- Volver a solicitar valores en caso de errores
 
 # Diagrama de flujo
 
