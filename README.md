@@ -35,6 +35,21 @@ ellos.
 # Reglas del negocio
 
 # Requerimientos Funcionales
+Los requerimientos funcionales que el programa requiere son:
+- Proporcionar de manera correcta los materiales que se tienen en
+inventario.
+- Capturar de forma eficiente los nuevos materiales que se ingresan 
+asi como su aumento o disminusion stock.
+- Enlistar el inventario con su respectivo stock.
+- Capturar los ingresos o egresos de material en existencia.
+- mostrar los precios por unidad de los materiales con los que se cuentan.
+Para esto nos apoyaremos de las funciones de registro que hemos visto en clase
+hasta el momento y las que veremos en las proximas semanas algunas de ssetas son:
+- if
+- else
+- imput
+- int
+- print 
 
 # Diseño de entradas y salidas
 
