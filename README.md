@@ -21,7 +21,7 @@ cada uno y el presupuesto total de todos y cada uno de
 ellos, con el fin de hacer todo de una manera fácil de
 entender, concisa y práctica.
 ## Problemas a resolver:
-Nuestra problemática a resolver son las siguientes:
+Nuestras problemáticas a resolver son las siguientes:
 - Captura de datos de manera fácil y optima para
 registrarlos dentro de una lista para un conocimiento
 de los mismos.
