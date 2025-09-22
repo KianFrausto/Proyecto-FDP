@@ -14,12 +14,18 @@ except IOError as e:
     print(f"Error: No se pudo acceder o generar el archivo. {e}")
     exit()
 
+def normalizar(texto):
+    return texto.lower().strip()
+
 def agegar_producto(): #Oscar
-    #Necesario tener:
-    # - codigo del producto
-    # - nombre
-    # - cantidad
-    # - costo individual
+        with open(f"{nom_archivo}.txt", "a") as file:
+            print(f"{"="*5} Registro de producto {"="*5}")
+            codigo = input("Ingrese el codigo del producto: ")
+            nombre = input("Ingrese el nombre del producto: ")
+            cantidad = input("Ingresa la cantidad: ")
+            costo = input("Ingresa el costo individual: ")
+            file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
+            print("Producto agregado correctamente.")
     
 def quitar_producto(): #Bryan
     #Necesario tener:
@@ -27,17 +33,34 @@ def quitar_producto(): #Bryan
     # - nombre
     # - cantidad
     # - costo individual
-def ver_inventario(): #Oscar
+    pass
 
+def ver_inventario(): #Oscar
+    with open(f"{nom_archivo}.txt", "r") as file:
+        print(f"| {'Codigo':<10} | {'Nombre':<15} | {'Cantidad':<15} | {'Costo individual':<16} | {'Costo total':<15} |")
+        for linea in file.readlines():
+            lista = linea.split(",")
+            total = int(lista[2])*float(lista[3])
+            print(f"| {(lista[0]):<10} | {(lista[1].title()):<15} | {(lista[2]):<15} | {(lista[3]):<16} | {total:<15} |")
+    
 def buscar_producto(): #Bryan
+    pass
 
 def calcular_total(): #Oscar
+    with open(f"{nom_archivo}.txt", "r") as file:
+        contador = 0
+        for linea in file.readlines():
+            lista = linea.split(",")
+            contador += int(lista[2]) * float(lista[3])
+        print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
+            
 
 def generar_reporte_final(): #Bryan
+    pass
 
 def menu():
     while True:
-        print(" === Menú ===")
+        print("\n === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
         print("3. Ver los productos registrados.")
