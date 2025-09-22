@@ -1,117 +1,71 @@
-# Registro de inventario
+import os
 
-num_materiales = int(input("¿Cuantos materiales se van a registrar(Numerico): "))
+nom_archivo = input("Ingrese el nombre del archivo de ventas: ")
+filepath = f"{nom_archivo}.txt"
 
-#Variables acumulables:
-costo_materiales = 0
-cont_materiales = 0
-resumen_materiales = ""
+try:
+    if not os.path.exists(filepath):
+        print(f"El archivo: {filepath} fue creado con éxito.")
+        file = open(filepath, "w+")
+    else:
+        print(f"El archivo: {filepath} ya existe.")
+        file = open(filepath, "a+")
+except IOError as e:
+    print(f"Error: No se pudo acceder o generar el archivo. {e}")
+    exit()
 
-#Contadores de materiales:
-mat_naturales = 0
-mat_artificiales = 0
-mat_compuestos = 0
+def agegar_producto(): #Oscar
+    #Necesario tener:
+    # - codigo del producto
+    # - nombre
+    # - cantidad
+    # - costo individual
+    
+def quitar_producto(): #Bryan
+    #Necesario tener:
+    # - codigo del producto
+    # - nombre
+    # - cantidad
+    # - costo individual
+def ver_inventario(): #Oscar
 
-#Registro de inventario:
-while cont_materiales < num_materiales:
-    print("")
-    print("Registro de material N.", cont_materiales + 1)
+def buscar_producto(): #Bryan
 
-    nombre=input("Nombre del material (o 'SALIR' para cancelar): ")
-    if nombre == "SALIR":
-        print("Registro cancelado")
-        break
+def calcular_total(): #Oscar
+
+def generar_reporte_final(): #Bryan
+
+def menu():
+    while True:
+        print(" === Menú ===")
+        print("1. Agregar producto a inventario.")
+        print("2. Quitar producto de inventario.")
+        print("3. Ver los productos registrados.")
+        print("4. Buscar producto.")
+        print("5. Calcular total de los productos.")
+        print("6. Generar reporte final.")
+        print("7. Salir.")
+
+        opcion = input("Seleccione una opcion: ")
         
-    #Tipo de material
-    print("Tipos de materiales:")
-    print("Natural (Madera,Algodon,Lana y Minerales)")
-    print("Artificial (Plastico,Vidrio,Cemento y Metales)")
-    print("Compuesto (Hormigon,Telas y Cuero)")
-    tipo_material = input("Seleccione el tipo del material a agregar(o 'SALIR' para cancelar): ")
-    if tipo_material == "SALIR":
-        print("Registro cancelado")
-    if not (tipo_material == "Natural" or tipo_material == "Artificial" or tipo_material == "Compuesto"):
-        print("Tipo de material no valido. Intente de nuevo")
-        continue
-
-    #Cantidad del material:
-    cantidad_valida = False
-    while not cantidad_valida:
-        cantidad_input = input("Cantidad del material (o 'SALIR' para cancelar ): ")
-        if cantidad_input == "SALIR":
-            print("Registro cancelado")
+        if opcion == "1":
+            agegar_producto()
+        elif opcion == "2":
+            quitar_producto()
+        elif opcion == "3":
+            ver_inventario()
+        elif opcion == "4":
+            buscar_producto()
+        elif opcion == "5":
+            calcular_total()
+        elif opcion == "6":
+            generar_reporte_final()
+        elif opcion == "7":
+            file.close()
+            print("\nSaliendo del sistema de inventario...")
             break
+        else:
+            print("Opción no valida. Intende de nuevo.")
 
-        es_numero = True
-        for p in cantidad_input:
-            if p < '0' or p > '9':
-                es_numero = False
-                break
-        if not es_numero:
-            print("Cantidad Invalida. Debe ser numerico.")
-            continue
-
-        cantidad = int(cantidad_input)
-        if cantidad <= 0:
-            print("Cantidad Invalida. Debe ser mayor a 0")
-            continue
-
-        cantidad_valida = True
-
-    if cantidad_valida == False:
-        break
-
-    #Costo del material:
-    costo_valido = False
-    while not costo_valido:
-        costo_input = input("Costo del material (o 'SALIR' para cancelar ): $")
-        if costo_input == "SALIR":
-            print("Registro cancelado")
-            break
-
-        es_numero = True
-        for p in costo_input:
-            if p < '0' or p > '9':
-                es_numero = False
-                break
-        if not es_numero:
-            print("Cantidad Invalida. Debe ser numerico.")
-            continue
-
-        costo = int(costo_input)
-        if costo <= 0:
-            print("Cantidad Invalida. Debe ser mayor a 0")
-            continue
-
-        costo_valido = True
-
-    if costo_valido == False:
-        break
-
-    #Acumuladores
-    costo_materiales += costo * cantidad
-    cont_materiales += 1
-
-    if tipo_material == "Natural":
-        mat_naturales += 1
-    elif tipo_material == "Artificial":
-        mat_artificiales += 1
-    elif tipo_material == "Compuesto":
-        mat_compuestos += 1
-
-resumen_materiales = resumen_materiales + "Nombre Material: " + nombre + "\t | Tipo Material: " + tipo_material + "\t | Cantidad Material: " + str(cantidad) + "\t | Costo Material por unidad: " + str(costo) + "\t | Costo Material Total: " + str(costo * cantidad) + "\n"
-
-#Reporte de inventario:
-print("\n====================================")
-print(" REPORTE FINAL - INVENTARIO")
-print("====================================")
-print("Total de materiales registrados:", cont_materiales)
-print("\nResumen del inventario:")
-print(resumen_materiales)
-print("======================================")
-print("Costo total del material $" + str(round(costo_materiales, 2)))
-if cont_materiales > 0:
-    print("Materiales por tipo - Naturales:", mat_naturales, "Artificiales:", mat_artificiales, "Compuestos:", mat_compuestos)
-else:
-    print("No se regristraron materiales.")
-print("======================================")    
+if __name__ == "__main__":
+    menu()
