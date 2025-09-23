@@ -17,19 +17,36 @@ except IOError as e:
 def normalizar(texto):
     return texto.lower().strip()
 
-def agegar_producto(): #Oscar
+def agregar_producto(): #Oscar
         with open(f"{nom_archivo}.txt", "a") as file:
-            print(f"{"="*5} Registro de producto {"="*5}")
-            codigo = input("Ingrese el codigo del producto: ")
-            nombre = input("Ingrese el nombre del producto: ")
-            print("Cual sera la cantidad?")
+            print(f"\n{"="*5} Registro de producto {"="*5}")
+            codigo = try_codigo()
+            nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
+            print("\n¿Cual sera la cantidad?")
             cantidad = try_int()
-            print("Cual sera el costo individual del producto?")
+            print("\n¿Cual sera el costo individual del producto?")
             costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
 
-def try_int():
+def try_codigo(): #funcion utilizada en la funcion agregar_producto()
+    # Esta funcion retorna el codigo si no existe, y si el codigo ya existe
+    # evitara que se duplique el codigo.
+    codigo = input("\n¿Cual es el codigo del producto?\nEscribe: ")
+    encontrado = False
+    with open(f"{nom_archivo}.txt", "r") as file:
+        for linea in file:
+            lista = linea.strip().split(",")
+            if codigo == lista[0]:
+                encontrado = True
+                print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
+                return try_codigo()
+    if encontrado == False:
+        return codigo
+    
+def try_int(): #funcion utilizada en la funcion agregar_producto()
+    # la utilidad de esto es que no se permita agregar al archivo de
+    # un dato erroneo, asi aumentando la practicidad del codigo
     try:
         escribe = int(input('Escribe: '))
         return escribe
@@ -37,7 +54,8 @@ def try_int():
         print('\nEl numero es invaliddo, escribelo de nuevo.\n')
         return try_int()
     
-def try_float():
+def try_float(): #funcion utilizada en la funcion agregar_producto()
+    # la misma utilidad del codigo de try_int() solo que este es para float
     try:
         escribe = float(input('Escribe: '))
         return escribe
@@ -66,7 +84,7 @@ def ver_inventario():  # Oscar
             precio = float(lista[3])
             total = cantidad * precio
             print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
-    
+
 def buscar_producto(): #Bryan
     pass
 
@@ -77,13 +95,14 @@ def calcular_total(): #Oscar
             lista = linea.split(",")
             contador += int(lista[2]) * float(lista[3])
         print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
-            
 
 def generar_reporte_final(): #Bryan
     pass
 
-def actualizar_inventario():
-    print("=====================\n¿Que desea realizar?")
+def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que faltaba, espero les guste el funcionamiento
+    #Esto es para modiicar la cantidad o el precio de algun articulo
+    # Aqui tambien se usan mis funciones de try_int() y try_float()
+    print("\n=====================\n¿Que desea realizar?")
     print("1. Actualizar cantidad")
     print("2. Actualizar precio")
     opcion = input("Escribe: ")
@@ -105,7 +124,7 @@ def actualizar_inventario():
                 lista_datos = string.split(",")
                 if str(lista_datos[0]) != str(act_cantidad):
                     nuevo_write += f"{lista_datos[0]},{lista_datos[1]},{lista_datos[2]},{lista_datos[3]}"
-            print("\n¿Cual vaa a ser la nueva cantidad?")
+            print("\n¿Cual va a ser la nueva cantidad?")
             nueva_cantidad = try_int()
             nuevo_write += f"{modificar[0]},{modificar[1]},{nueva_cantidad},{modificar[3]}\n"
             with open(f"{nom_archivo}.txt", "w") as file:
@@ -141,23 +160,22 @@ def actualizar_inventario():
     else:
         print("\nOpcion invalida, se te regresara al menu\n")
 
-
 def menu():
     while True:
-        print("\n === Menú ===")
+        print(" === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
         print("3. Ver los productos registrados.")
         print("4. Buscar producto.")
         print("5. Calcular total de los productos.")
         print("6. Generar reporte final.")
-        print("7. Actualizar cantidad o precio.")
+        print("7. Actualizar cantidad o precio de producto.")
         print("8. Salir.")
 
         opcion = input("Seleccione una opcion: ")
         
         if opcion == "1":
-            agegar_producto()
+            agregar_producto()
         elif opcion == "2":
             quitar_producto()
         elif opcion == "3":
