@@ -28,6 +28,21 @@ def agregar_producto(): #Oscar
             costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
+
+def try_codigo(): #funcion utilizada en la funcion agregar_producto()
+    # Esta funcion retorna el codigo si no existe, y si el codigo ya existe
+    # evitara que se duplique el codigo.
+    codigo = input("\n¿Cual es el codigo del producto?\nEscribe: ")
+    encontrado = False
+    with open(f"{nom_archivo}.txt", "r") as file:
+        for linea in file:
+            lista = linea.strip().split(",")
+            if codigo == lista[0]:
+                encontrado = True
+                print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
+                return try_codigo()
+    if encontrado == False:
+        return codigo
     
 def quitar_producto(): #Bryan
     #Necesario tener:
