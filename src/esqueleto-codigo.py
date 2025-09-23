@@ -102,15 +102,22 @@ def ver_inventario():  # Oscar
 def buscar_producto(): #Bryan
     with open(f"{nom_archivo}.txt", "r") as file:
         lista = file.readlines()
-    codigo = input("¿Cual es el codigo a buscar?")
+    codigo = input("¿Cual es el codigo a buscar?\nEscribe: ")
     encontrado = False
     for producto in lista:
         valores = producto.strip().split(",")
         if codigo == valores[0]:
             encontrado = True
+            print("-" * 100)
             print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
-            total = round((valores[2] * valores[3]), 2)
-            print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(valores[0], valores[1], valores[2], valores[3], total))
+            print("-" * 100)
+            codigo = valores[0]
+            producto = valores[1].title()
+            cantidad = int(valores[2])
+            precio = float(valores[3])
+            total = round(cantidad * precio, 2)
+            print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
+            print("-" * 100)
     if encontrado == False:
         print("\nNo se encontro el codigo\n")
 
@@ -188,7 +195,7 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
 
 def menu():
     while True:
-        print(" === Menú ===")
+        print("\n === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
         print("3. Ver los productos registrados.")
