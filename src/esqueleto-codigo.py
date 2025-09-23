@@ -86,7 +86,7 @@ def ver_inventario():  # Oscar
         precio = float(lista[3])
         total = cantidad * precio
         print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
-        print("-" * 100)
+    print("-" * 100)
 
 def buscar_producto(): #Bryan
     pass
