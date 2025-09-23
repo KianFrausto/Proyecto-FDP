@@ -73,17 +73,19 @@ def quitar_producto(): #Bryan
 
 def ver_inventario():  # Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
+        productos = file.readlines()
+    print("-" * 100)
+    print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
+    print("-" * 100)
+    for linea in productos:
+        lista = linea.strip().split(",")
+        codigo = lista[0]
+        producto = lista[1].title()
+        cantidad = int(lista[2])
+        precio = float(lista[3])
+        total = cantidad * precio
+        print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
         print("-" * 100)
-        print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
-        print("-" * 100)
-        for linea in file:
-            lista = linea.strip().split(",")
-            codigo = lista[0]
-            producto = lista[1].title()
-            cantidad = int(lista[2])
-            precio = float(lista[3])
-            total = cantidad * precio
-            print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
 
 def buscar_producto(): #Bryan
     pass
