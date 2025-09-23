@@ -18,14 +18,14 @@ def normalizar(texto):
     return texto.lower().strip()
 
 def agregar_producto(): #Oscar
+        print(f"\n{"="*5} Registro de producto {"="*5}")
+        codigo = try_codigo()
+        nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
+        print("\n¿Cual sera la cantidad?")
+        cantidad = try_int()
+        print("\n¿Cual sera el costo individual del producto?")
+        costo = try_float()
         with open(f"{nom_archivo}.txt", "a") as file:
-            print(f"\n{"="*5} Registro de producto {"="*5}")
-            codigo = try_codigo()
-            nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
-            print("\n¿Cual sera la cantidad?")
-            cantidad = try_int()
-            print("\n¿Cual sera el costo individual del producto?")
-            costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
 
@@ -100,7 +100,19 @@ def ver_inventario():  # Oscar
             print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
 
 def buscar_producto(): #Bryan
-    pass
+    with open(f"{nom_archivo}.txt", "r") as file:
+        lista = file.readlines()
+    codigo = input("¿Cual es el codigo a buscar?")
+    encontrado = False
+    for producto in lista:
+        valores = producto.strip().split(",")
+        if codigo == valores[0]:
+            encontrado = True
+            print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
+            total = round((valores[2] * valores[3]), 2)
+            print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(valores[0], valores[1], valores[2], valores[3], total))
+    if encontrado == False:
+        print("\nNo se encontro el codigo\n")
 
 def calcular_total(): #Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
