@@ -18,14 +18,14 @@ def normalizar(texto):
     return texto.lower().strip()
 
 def agregar_producto(): #Oscar
+        print(f"\n{"="*5} Registro de producto {"="*5}")
+        codigo = try_codigo()
+        nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
+        print("\n¿Cual sera la cantidad?")
+        cantidad = try_int()
+        print("\n¿Cual sera el costo individual del producto?")
+        costo = try_float()
         with open(f"{nom_archivo}.txt", "a") as file:
-            print(f"\n{"="*5} Registro de producto {"="*5}")
-            codigo = try_codigo()
-            nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
-            print("\n¿Cual sera la cantidad?")
-            cantidad = try_int()
-            print("\n¿Cual sera el costo individual del producto?")
-            costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
 
@@ -35,12 +35,13 @@ def try_codigo(): #funcion utilizada en la funcion agregar_producto()
     codigo = input("\n¿Cual es el codigo del producto?\nEscribe: ")
     encontrado = False
     with open(f"{nom_archivo}.txt", "r") as file:
-        for linea in file:
-            lista = linea.strip().split(",")
-            if codigo == lista[0]:
-                encontrado = True
-                print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
-                return try_codigo()
+        archivo = file.readlines()
+    for linea in archivo:
+        lista = linea.strip().split(",")
+        if codigo == lista[0]:
+            encontrado = True
+            print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
+            return try_codigo()
     if encontrado == False:
         return codigo
     
@@ -92,11 +93,12 @@ def buscar_producto(): #Bryan
 
 def calcular_total(): #Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
-        contador = 0
-        for linea in file.readlines():
-            lista = linea.split(",")
-            contador += int(lista[2]) * float(lista[3])
-        print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
+        archivo = file.readlines()
+    contador = 0
+    for linea in archivo:
+        lista = linea.split(",")
+        contador += int(lista[2]) * float(lista[3])
+    print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
 
 def generar_reporte_final(): #Bryan
     pass
