@@ -44,6 +44,25 @@ def try_codigo(): #funcion utilizada en la funcion agregar_producto()
     if encontrado == False:
         return codigo
     
+def try_int(): #funcion utilizada en la funcion agregar_producto()
+    # la utilidad de esto es que no se permita agregar al archivo de
+    # un dato erroneo, asi aumentando la practicidad del codigo
+    try:
+        escribe = int(input('Escribe: '))
+        return escribe
+    except ValueError:
+        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
+        return try_int()
+    
+def try_float(): #funcion utilizada en la funcion agregar_producto()
+    # la misma utilidad del codigo de try_int() solo que este es para float
+    try:
+        escribe = float(input('Escribe: '))
+        return escribe
+    except ValueError:
+        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
+        return try_int()
+    
 def quitar_producto(): #Bryan
     #Necesario tener:
     # - codigo del producto
