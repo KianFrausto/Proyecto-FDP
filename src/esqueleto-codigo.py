@@ -18,11 +18,14 @@ def normalizar(texto):
     return texto.lower().strip()
 
 def agegar_producto(): #Oscar
-    #Necesario tener:
-    # - codigo del producto
-    # - nombre
-    # - cantidad
-    # - costo individual
+        with open(f"{nom_archivo}.txt", "a") as file:
+            print(f"{"="*5} Registro de producto {"="*5}")
+            codigo = input("Ingrese el codigo del producto: ")
+            nombre = input("Ingrese el nombre del producto: ")
+            cantidad = input("Ingresa la cantidad: ")
+            costo = input("Ingresa el costo individual: ")
+            file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
+            print("Producto agregado correctamente.")
     
 def quitar_producto(): #Bryan
     #Necesario tener:
