@@ -102,7 +102,7 @@ def generar_reporte_final(): #Bryan
 def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que faltaba, espero les guste el funcionamiento
     #Esto es para modiicar la cantidad o el precio de algun articulo
     # Aqui tambien se usan mis funciones de try_int() y try_float()
-    print("=====================\n¿Que desea realizar?")
+    print("\n=====================\n¿Que desea realizar?")
     print("1. Actualizar cantidad")
     print("2. Actualizar precio")
     opcion = input("Escribe: ")
@@ -124,7 +124,7 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
                 lista_datos = string.split(",")
                 if str(lista_datos[0]) != str(act_cantidad):
                     nuevo_write += f"{lista_datos[0]},{lista_datos[1]},{lista_datos[2]},{lista_datos[3]}"
-            print("\n¿Cual vaa a ser la nueva cantidad?")
+            print("\n¿Cual va a ser la nueva cantidad?")
             nueva_cantidad = try_int()
             nuevo_write += f"{modificar[0]},{modificar[1]},{nueva_cantidad},{modificar[3]}\n"
             with open(f"{nom_archivo}.txt", "w") as file:
