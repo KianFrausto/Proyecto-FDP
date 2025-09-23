@@ -17,13 +17,15 @@ except IOError as e:
 def normalizar(texto):
     return texto.lower().strip()
 
-def agegar_producto(): #Oscar
+def agregar_producto(): #Oscar
         with open(f"{nom_archivo}.txt", "a") as file:
-            print(f"{"="*5} Registro de producto {"="*5}")
-            codigo = input("Ingrese el codigo del producto: ")
-            nombre = input("Ingrese el nombre del producto: ")
-            cantidad = input("Ingresa la cantidad: ")
-            costo = input("Ingresa el costo individual: ")
+            print(f"\n{"="*5} Registro de producto {"="*5}")
+            codigo = try_codigo()
+            nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
+            print("\n¿Cual sera la cantidad?")
+            cantidad = try_int()
+            print("\n¿Cual sera el costo individual del producto?")
+            costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
     
@@ -71,7 +73,7 @@ def menu():
         opcion = input("Seleccione una opcion: ")
         
         if opcion == "1":
-            agegar_producto()
+            agregar_producto()
         elif opcion == "2":
             quitar_producto()
         elif opcion == "3":
