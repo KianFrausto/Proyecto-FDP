@@ -40,7 +40,7 @@ def try_codigo(): #funcion utilizada en la funcion agregar_producto()
         lista = linea.strip().split(",")
         if codigo == lista[0]:
             encontrado = True
-            print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
+            print("\nEl codigo ya existe en el inventario.\nEscribe un nuevo codigo")
             return try_codigo()
     if encontrado == False:
         return codigo
@@ -58,11 +58,11 @@ def try_int(): #funcion utilizada en la funcion agregar_producto()
 def try_float(): #funcion utilizada en la funcion agregar_producto()
     # la misma utilidad del codigo de try_int() solo que este es para float
     try:
-        escribe = float(input('Escribe: '))
+        escribe = float(input('Escribe: $'))
         return escribe
     except ValueError:
-        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
-        return try_int()
+        print('\nEl numero es invalido, escribelo de nuevo.\n')
+        return try_float()
     
 def quitar_producto(): #Bryan
     #Necesario tener:
@@ -109,7 +109,7 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
     print("\n=====================\n¿Que desea realizar?")
     print("1. Actualizar cantidad")
     print("2. Actualizar precio")
-    opcion = input("Escribe: ")
+    opcion = input("Elige una de las opciones: ")
     encontrado = False
     nuevo_write = ""
 
@@ -162,18 +162,19 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
             print("\nNo se encontro el codigo\n")
 
     else:
-        print("\nOpcion invalida, se te regresara al menu\n")
+        print("\nOpcion invalida. Intente de nuevo.")
+        return actualizar_inventario()
 
 def menu():
     while True:
-        print(" === Menú ===")
+        print("\n === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
         print("3. Ver los productos registrados.")
         print("4. Buscar producto.")
         print("5. Calcular total de los productos.")
-        print("6. Generar reporte final.")
-        print("7. Actualizar cantidad o precio de producto.")
+        print("6. Actualizar cantidad o precio de producto.")
+        print("7. Generar reporte final.")
         print("8. Salir.")
 
         opcion = input("Seleccione una opcion: ")
@@ -189,9 +190,9 @@ def menu():
         elif opcion == "5":
             calcular_total()
         elif opcion == "6":
-            generar_reporte_final()
-        elif opcion == "7":
             actualizar_inventario()
+        elif opcion == "7":
+            generar_reporte_final()
         elif opcion == "8":
             file.close()
             print("\nSaliendo del sistema de inventario...")
