@@ -63,13 +63,27 @@ def try_float(): #funcion utilizada en la funcion agregar_producto()
         print('\nEl numero es invaliddo, escribelo de nuevo.\n')
         return try_int()
     
-def quitar_producto(): #Bryan
-    #Necesario tener:
-    # - codigo del producto
-    # - nombre
-    # - cantidad
-    # - costo individual
-    pass
+def quitar_producto():
+    ver_inventario()
+    encontrado = False
+    nuevo_write = ""
+    with open(f"{nom_archivo}.txt", "r") as file:
+        borrar = input("Escribe el codigo del producto a borrar: ")
+        lista = file.readlines()
+    for linea in lista:
+        lista_individual = linea.strip().split(",")
+        if lista_individual[0] == borrar:
+            encontrado = True
+    if encontrado:
+        for string in lista:
+            lista_datos = string.split(",")
+            if str(lista_datos[0]) != str(borrar):
+                nuevo_write += f"{lista_datos[0]},{lista_datos[1]},{lista_datos[2]},{lista_datos[3]}"
+        with open(f"{nom_archivo}.txt", "w") as file:
+            file.write(nuevo_write)
+            print('Actualizado con exito')
+    else:  
+        print("\nNo se encontro el codigo\n")
 
 def ver_inventario():  # Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
