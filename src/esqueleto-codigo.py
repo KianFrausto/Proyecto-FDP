@@ -33,6 +33,7 @@ def quitar_producto(): #Bryan
     # - nombre
     # - cantidad
     # - costo individual
+    pass
 
 def ver_inventario(): #Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
@@ -43,6 +44,7 @@ def ver_inventario(): #Oscar
             print(f"| {(lista[0]):<10} | {(lista[1].title()):<15} | {(lista[2]):<15} | {(lista[3]):<16} | {total:<15} |")
 
 def buscar_producto(): #Bryan
+    pass
 
 def calcular_total(): #Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
@@ -53,6 +55,7 @@ def calcular_total(): #Oscar
         print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
 
 def generar_reporte_final(): #Bryan
+    pass
 
 def menu():
     while True:
