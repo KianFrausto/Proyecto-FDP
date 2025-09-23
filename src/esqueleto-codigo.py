@@ -53,13 +53,19 @@ def quitar_producto(): #Bryan
     # - costo individual
     pass
 
-def ver_inventario(): #Oscar
+def ver_inventario():  # Oscar
     with open(f"{nom_archivo}.txt", "r") as file:
-        print(f"| {'Codigo':<10} | {'Nombre':<15} | {'Cantidad':<15} | {'Costo individual':<16} | {'Costo total':<15} |")
-        for linea in file.readlines():
-            lista = linea.split(",")
-            total = int(lista[2])*float(lista[3])
-            print(f"| {(lista[0]):<10} | {(lista[1].title()):<15} | {(lista[2]):<15} | {(lista[3]):<16} | {total:<15} |")
+        print("-" * 100)
+        print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
+        print("-" * 100)
+        for linea in file:
+            lista = linea.strip().split(",")
+            codigo = lista[0]
+            producto = lista[1].title()
+            cantidad = int(lista[2])
+            precio = float(lista[3])
+            total = cantidad * precio
+            print("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
     
 def buscar_producto(): #Bryan
     pass
