@@ -14,6 +14,9 @@ except IOError as e:
     print(f"Error: No se pudo acceder o generar el archivo. {e}")
     exit()
 
+def normalizar(texto):
+    return texto.lower().strip()
+
 def agegar_producto(): #Oscar
     #Necesario tener:
     # - codigo del producto
