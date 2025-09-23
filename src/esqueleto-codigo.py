@@ -82,6 +82,66 @@ def calcular_total(): #Oscar
 def generar_reporte_final(): #Bryan
     pass
 
+def actualizar_inventario():
+    print("=====================\n¿Que desea realizar?")
+    print("1. Actualizar cantidad")
+    print("2. Actualizar precio")
+    opcion = input("Escribe: ")
+    encontrado = False
+    nuevo_write = ""
+
+    if opcion == "1":
+        ver_inventario()
+        with open(f"{nom_archivo}.txt", "r") as file:
+            act_cantidad = input("Escribe el codigo del producto a modificar: ")
+            lista = file.readlines()
+        for linea in lista:
+            lista_individual = linea.strip().split(",")
+            if lista_individual[0] == act_cantidad:
+                modificar = lista_individual
+                encontrado = True
+        if encontrado:
+            for string in lista:
+                lista_datos = string.split(",")
+                if str(lista_datos[0]) != str(act_cantidad):
+                    nuevo_write += f"{lista_datos[0]},{lista_datos[1]},{lista_datos[2]},{lista_datos[3]}"
+            print("\n¿Cual vaa a ser la nueva cantidad?")
+            nueva_cantidad = try_int()
+            nuevo_write += f"{modificar[0]},{modificar[1]},{nueva_cantidad},{modificar[3]}\n"
+            with open(f"{nom_archivo}.txt", "w") as file:
+                file.write(nuevo_write)
+                print('Actualizado con exito')
+        else:  
+            print("\nNo se encontro el codigo\n")
+
+    elif opcion == "2":
+        ver_inventario()
+        with open(f"{nom_archivo}.txt", "r") as file:
+            act_cantidad = input("Escribe el codigo del producto a modificar: ")
+            lista = file.readlines()
+        for linea in lista:
+            lista_individual = linea.strip().split(",")
+            if lista_individual[0] == act_cantidad:
+                modificar = lista_individual
+                encontrado = True
+        if encontrado:
+            for string in lista:
+                lista_datos = string.split(",")
+                if str(lista_datos[0]) != str(act_cantidad):
+                    nuevo_write += f"{lista_datos[0]},{lista_datos[1]},{lista_datos[2]},{lista_datos[3]}"
+            print("\n¿Cual va a ser el precio unitario?")
+            nueva_cantidad = try_float()
+            nuevo_write += f"{modificar[0]},{modificar[1]},{modificar[2]},{nueva_cantidad}\n"
+            with open(f"{nom_archivo}.txt", "w") as file:
+                file.write(nuevo_write)
+                print('Actualizado con exito')
+        else:  
+            print("\nNo se encontro el codigo\n")
+
+    else:
+        print("\nOpcion invalida, se te regresara al menu\n")
+
+
 def menu():
     while True:
         print("\n === Menú ===")
@@ -91,7 +151,8 @@ def menu():
         print("4. Buscar producto.")
         print("5. Calcular total de los productos.")
         print("6. Generar reporte final.")
-        print("7. Salir.")
+        print("7. Actualizar cantidad o precio.")
+        print("8. Salir.")
 
         opcion = input("Seleccione una opcion: ")
         
@@ -108,6 +169,8 @@ def menu():
         elif opcion == "6":
             generar_reporte_final()
         elif opcion == "7":
+            actualizar_inventario()
+        elif opcion == "8":
             file.close()
             print("\nSaliendo del sistema de inventario...")
             break
