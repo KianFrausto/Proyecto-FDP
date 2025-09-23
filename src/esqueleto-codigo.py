@@ -98,6 +98,7 @@ def calcular_total(): #Oscar
     for linea in archivo:
         lista = linea.split(",")
         contador += int(lista[2]) * float(lista[3])
+    ver_inventario()
     print(f"{'='*50}\nEl total es de ${contador}\n{'='*50}")
 
 def generar_reporte_final(): #Bryan
@@ -109,6 +110,7 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
     print("\n=====================\n¿Que desea realizar?")
     print("1. Actualizar cantidad")
     print("2. Actualizar precio")
+    print("3. Salir")
     opcion = input("Elige una de las opciones: ")
     encontrado = False
     nuevo_write = ""
@@ -160,7 +162,9 @@ def actualizar_inventario(): #Nota esto lo agregue (Oscar)porque senti que falta
                 print('Actualizado con exito')
         else:  
             print("\nNo se encontro el codigo\n")
-
+    elif opcion == "3":
+        print("Saliendo de la opcion: Actualizar inventario...")
+        return menu()
     else:
         print("\nOpcion invalida. Intente de nuevo.")
         return actualizar_inventario()
