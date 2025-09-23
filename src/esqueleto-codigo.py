@@ -22,10 +22,28 @@ def agegar_producto(): #Oscar
             print(f"{"="*5} Registro de producto {"="*5}")
             codigo = input("Ingrese el codigo del producto: ")
             nombre = input("Ingrese el nombre del producto: ")
-            cantidad = input("Ingresa la cantidad: ")
-            costo = input("Ingresa el costo individual: ")
+            print("Cual sera la cantidad?")
+            cantidad = try_int()
+            print("Cual sera el costo individual del producto?")
+            costo = try_float()
             file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
             print("Producto agregado correctamente.")
+
+def try_int():
+    try:
+        escribe = int(input('Escribe: '))
+        return escribe
+    except ValueError:
+        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
+        return try_int()
+    
+def try_float():
+    try:
+        escribe = float(input('Escribe: '))
+        return escribe
+    except ValueError:
+        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
+        return try_int()
     
 def quitar_producto(): #Bryan
     #Necesario tener:
