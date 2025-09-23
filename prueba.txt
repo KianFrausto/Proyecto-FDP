@@ -1,2 +1,0 @@
-Osc,oSCAR,24,23
-hola,jajaja,5,3
