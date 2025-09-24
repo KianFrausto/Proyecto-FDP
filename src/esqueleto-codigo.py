@@ -20,17 +20,15 @@ def normalizar(texto):
 def agregar_producto(): #Oscar
     print("\n" + "="*5 + " Registro de producto " + "="*5)
     codigo = try_codigo()
-    nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
-    print("\n¿Cual sera la cantidad?")
+    nombre = try_nombre()
     cantidad = try_int()
-    print("\n¿Cual sera el costo individual del producto?")
     costo = try_float()
     with open(f"{nom_archivo}.txt", "a") as file:
         file.write(f"{codigo},{normalizar(nombre)},{cantidad},{costo}\n")
         print("Producto agregado correctamente.")
 
 def try_codigo(): #funcion utilizada en la funcion agregar_producto()
-    codigo = input("\n¿Cual es el codigo del producto?\nEscribe: ")
+    codigo = input("\n¿Cual es el codigo del producto?\nCodigo a ingresar: ")
     while True:
         if codigo.strip() == "":
             print("\nEl código no puede estar vacío. Inténtalo de nuevo.")
@@ -44,10 +42,26 @@ def try_codigo(): #funcion utilizada en la funcion agregar_producto()
                 print("\nEl codigo ya existe en el inventario\nEscribe un nuevo codigo")
                 return try_codigo()
     return codigo
+
+def try_nombre(): #funcion utilizada en la funcion agregar_producto()
+    nombre = input("\n¿Cual es el nombre del producto?\nNombre a ingresar: ")
+    while True:
+        if nombre.strip() == "":
+            print("\nEl nombre no puede estar vacío. Inténtalo de nuevo.")
+            return try_nombre()
+        else:
+            break
+    with open(f"{nom_archivo}.txt", "r") as file:
+        for linea in file:
+            lista = linea.strip().split(",")
+            if nombre.lower() == lista[1].lower():
+                print("\nEste producto ya existe en el inventario.\nIntente otro nombre.")
+                return try_nombre()
+    return nombre
     
 def try_int(): 
     try:
-        escribe = int(input('Escribe: '))
+        escribe = int(input('\n¿Cual sera la cantidad?\nCantidad: '))
         return escribe
     except ValueError:
         print('\nEl numero es invalido, escribelo de nuevo.\n')
@@ -55,7 +69,7 @@ def try_int():
     
 def try_float(): 
     try:
-        escribe = float(input('Escribe: '))
+        escribe = float(input('\n¿Cual sera el costo individual del producto?\nCosto: $'))
         return escribe
     except ValueError:
         print('\nEl numero es invalido, escribelo de nuevo.\n')

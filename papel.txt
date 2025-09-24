@@ -1,0 +1,2 @@
+123456,papel,25,15.5
+234,& c:/users/maldo/appdata/local/programs/python/python313/python.exe c:/users/maldo/onedrive/proyecto-fdp/src/esqueleto-codigo.py,3,45.0
