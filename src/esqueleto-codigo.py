@@ -44,7 +44,7 @@ def try_int():
         escribe = int(input('Escribe: '))
         return escribe
     except ValueError:
-        print('\nEl numero es inválido, escríbelo de nuevo.\n')
+        print('\nEl numero es invalido, escribelo de nuevo.\n')
         return try_int()
     
 def try_float(): 
@@ -52,7 +52,7 @@ def try_float():
         escribe = float(input('Escribe: '))
         return escribe
     except ValueError:
-        print('\nEl número es inválido, escríbelo de nuevo.\n')
+        print('\nEl numero es invalido, escribelo de nuevo.\n')
         return try_float()
     
 def quitar_producto():
@@ -81,10 +81,10 @@ def ver_inventario():
     with open(f"{nom_archivo}.txt", "r") as file:
         productos = file.readlines()
     if not productos:
-        print("\nEl inventario está vacío.\n")
+        print("\nEl inventario esta vacio.\n")
         return
     print("-" * 100)
-    print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
+    print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
     print("-" * 100)
     for linea in productos:
         lista = linea.strip().split(",")
@@ -99,6 +99,17 @@ def ver_inventario():
 def buscar_producto(): #Bryan
     with open(f"{nom_archivo}.txt", "r") as file:
         lista = file.readlines()
+        if not lista:
+            print("\nEl inventario esta vacio.\n")
+            return
+    print("-" * 30)
+    print("{:^25}".format("Codigo"))
+    print("-" * 30)
+    for linea in lista:
+        valor = linea.strip().split(",")
+        cod = valor[0]
+        print("{:^25}".format(cod))
+        print("-" * 30)
     codigo = input("¿Cual es el codigo a buscar?\nEscribe: ")
     encontrado = False
     for producto in lista:
@@ -106,7 +117,7 @@ def buscar_producto(): #Bryan
         if codigo == valores[0]:
             encontrado = True
             print("-" * 100)
-            print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Código", "Producto", "Cantidad", "Precio", "Total"))
+            print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
             print("-" * 100)
             codigo = valores[0]
             producto = valores[1].title()
