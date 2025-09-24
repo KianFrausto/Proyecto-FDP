@@ -153,9 +153,8 @@ def generar_reporte_final(): #Bryan
 
     reporte = []
     total_general = 0
-    reporte.append("="*60 + "\nREPORTE FINAL DEL INVENTARIO\n" + "="*60 + "\n")
-    reporte.append("{:<15} {:<20} {:<10} {:<10} {:<10}\n".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
-    reporte.append("-"*60 + "\n")
+    reporte.append("="*100 + "\nREPORTE FINAL DEL INVENTARIO\n" + "="*100 + "\n")
+    reporte.append("{:^25} {:^25} {:^20} ${:^10} ${:^12}".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
 
     for linea in productos:
         lista = linea.strip().split(",")
@@ -165,11 +164,11 @@ def generar_reporte_final(): #Bryan
         precio = float(lista[3])
         total = cantidad * precio
         total_general += total
-        reporte.append("{:<15} {:<20} {:<10} ${:<9.2f} ${:<9.2f}\n".format(codigo, producto, cantidad, precio, total))
+        reporte.append("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}".format(codigo, producto, cantidad, precio, total))
 
-    reporte.append("-"*60 + "\n")
+    reporte.append("="*100 + "\n")
     reporte.append(f"TOTAL GENERAL: ${total_general:.2f}\n")
-    reporte.append("="*60 + "\n")
+    reporte.append("="*100 + "\n")
 
     with open("reporte_final.txt", "w") as rep_file:
         rep_file.writelines(reporte)
