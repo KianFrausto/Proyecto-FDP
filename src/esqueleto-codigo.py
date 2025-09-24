@@ -157,7 +157,7 @@ def calcular_total():
             contador += int(lista[2]) * float(lista[3])
         print(f"{'='*50}\nEl total es de ${contador:.2f}\n{'='*50}")
 
-def generar_reporte_final(): #Bryan
+def generar_reporte_final(): #Bryan #Revisar el como se sube el  archivo
     with open(f"{nom_archivo}.txt", "r") as file:
         productos = file.readlines()
 
