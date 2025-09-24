@@ -21,7 +21,6 @@ def agregar_producto(): #Oscar
         print(f"\n{"="*5} Registro de producto {"="*5}")
         codigo = try_codigo()
         nombre = input("\n¿Cual es el nombre del producto?\nEscribe: ")
-        print("\n¿Cual sera la cantidad?")
         cantidad = try_int()
         print("\n¿Cual sera el costo individual del producto?")
         costo = try_float()
@@ -49,10 +48,10 @@ def try_int(): #funcion utilizada en la funcion agregar_producto()
     # la utilidad de esto es que no se permita agregar al archivo de
     # un dato erroneo, asi aumentando la practicidad del codigo
     try:
-        escribe = int(input('Escribe: '))
+        escribe = int(input('\n¿Cual sera la cantidad?\nEscribe: '))
         return escribe
     except ValueError:
-        print('\nEl numero es invaliddo, escribelo de nuevo.\n')
+        print('\nEl numero es invalido, escribelo de nuevo.\n')
         return try_int()
     
 def try_float(): #funcion utilizada en la funcion agregar_producto()
