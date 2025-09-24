@@ -110,7 +110,7 @@ def buscar_producto(): #Bryan
         cod = valor[0]
         print("{:^25}".format(cod))
         print("-" * 30)
-    codigo = input("¿Cual es el codigo a buscar?\nEscribe: ")
+    codigo = input("¿Cual es el codigo a buscar?\nCodigo: ")
     encontrado = False
     for producto in lista:
         valores = producto.strip().split(",")
