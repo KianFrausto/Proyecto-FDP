@@ -31,6 +31,12 @@ def agregar_producto(): #Oscar
 
 def try_codigo(): #funcion utilizada en la funcion agregar_producto()
     codigo = input("\n¿Cual es el codigo del producto?\nEscribe: ")
+    while True:
+        if codigo.strip() == "":
+            print("\nEl código no puede estar vacío. Inténtalo de nuevo.")
+            return try_codigo()
+        else:
+            break
     with open(f"{nom_archivo}.txt", "r") as file:
         for linea in file:
             lista = linea.strip().split(",")
