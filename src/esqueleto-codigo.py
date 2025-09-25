@@ -2,10 +2,9 @@ import os
 import time
 import datetime as dt
 
-#si
-
 dia = dt.date.today()
-NOMBRE_REPORTE_PROHIBIDO = "Reporte Final.txt"
+
+NOMBRE_REPORTE_PROHIBIDO = f"Reporte Final-{dia.day}-{dia.month}-{dia.year}.txt"
 
 while True:
     nom_archivo_input = input("Ingrese el nombre del archivo para el inventario: ").strip()
@@ -14,7 +13,9 @@ while True:
         print("El nombre del archivo no puede estar vacio. Intente de nuevo.")
         continue
 
-    if f"{nom_archivo_input.lower()}.txt" == NOMBRE_REPORTE_PROHIBIDO:
+    nombre_completo_input = f"{nom_archivo_input}-{dia.day}-{dia.month}-{dia.year}.txt"
+
+    if f"{nombre_completo_input.lower()}.txt" == NOMBRE_REPORTE_PROHIBIDO:
         print(f"No puede usar: {nom_archivo_input} como nombre, ya que es el mismo nombre del archivo de reporte final.")
         continue
 
