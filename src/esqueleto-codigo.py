@@ -401,7 +401,6 @@ def generar_reporte_final():
 
 def menu():        
     while True:
-        cargando(0.15, "Cargando menu")
         print("\n === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
@@ -429,7 +428,7 @@ def menu():
         elif opcion == "7":
             generar_reporte_final()
         elif opcion == "8":
-            print("\nSaliendo del sistema de inventario...")
+            cargando(0.25, "Saliendo del sistema de inventario")
             break
         else:
             print("Opción no valida. Intente de nuevo.")
