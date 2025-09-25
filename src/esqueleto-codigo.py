@@ -6,34 +6,54 @@ dia = dt.date.today()
 
 NOMBRE_REPORTE_PROHIBIDO = f"Reporte Final-{dia.day}-{dia.month}-{dia.year}.txt"
 
+filepath_carga = ""  
+filepath_guardado = "" 
+
 while True:
-    nom_archivo_input = input("Ingrese el nombre del archivo para el inventario: ").strip()
+    try:    
+        nom_archivo_input = input("Ingrese el nombre del archivo para el inventario: ").strip()
 
-    if not nom_archivo_input:
-        print("El nombre del archivo no puede estar vacio. Intente de nuevo.")
-        continue
+        if not nom_archivo_input:
+            print("El nombre del archivo no puede estar vacio. Intente de nuevo.")
+            continue
 
-    nombre_completo_input = f"{nom_archivo_input}-{dia.day}-{dia.month}-{dia.year}.txt"
+        print("\nIngrese la fecha del archivo (deje en blanco para usar la fecha actual):)")
 
-    if f"{nombre_completo_input.lower()}.txt" == NOMBRE_REPORTE_PROHIBIDO:
-        print(f"No puede usar: {nom_archivo_input} como nombre, ya que es el mismo nombre del archivo de reporte final.")
-        continue
+        year_input = input("Año (YYYY): ")
+        month_input = input("Mes (MM): ")
+        day_input = input("Día (DD): ")
 
-    break
+        if not (year_input and month_input and day_input):
+            fecha_busqueda = dt.date.today()
+        else:
+            fecha_busqueda = dt.date(int(year_input), int(month_input), int(day_input))
+        
+        filepath_carga= f"{nom_archivo_input}-{fecha_busqueda.day}-{fecha_busqueda.month}-{fecha_busqueda.year}.txt"
 
-filepath = f"{nom_archivo_input}-{dia.day}-{dia.month}-{dia.year}.txt" 
+        fecha_guardado = dt.date.today()
+        filepath_guardado = f"{nom_archivo_input}-{fecha_guardado.day}-{fecha_guardado.month}-{fecha_guardado.year}.txt"
 
-try:
-    if not os.path.exists(filepath):
-        print(f"El archivo: {filepath} fue creado con éxito.")
-        with open(filepath, "w+") as file:
-            pass
-    else:
-        print(f"El archivo: {filepath} ya existe.")
-        pass
-except IOError as e:
-    print(f"Error: No se pudo acceder o generar el archivo. {e}")
-    exit()
+        if filepath_guardado.lower() == NOMBRE_REPORTE_PROHIBIDO.lower():
+            print(f"No puede usar: {nom_archivo_input} como nombre, ya que es el mismo nombre del archivo de reporte final de hoy.")
+            continue
+
+        if os.path.exists(filepath_carga):
+            print(f"El archivo: {filepath_carga} fue cargado con éxito.")
+            if not os.path.exists(filepath_guardado):
+                print(f"Los cambios se guardarán en el nuevo archivo: {filepath_guardado}.")
+                with open(filepath_guardado, "w+") as file:
+                    pass
+        else:
+            print(f"El archivo: {filepath_carga} no existe. Se creará un nuevo inventario para hoy con el nombre: {filepath_guardado}.")
+            with open(filepath_guardado, "w+") as file:
+                pass
+        
+        break
+    
+    except ValueError:
+        print("\n¡Error en el formato de la fecha! Asegúrese de ingresar números válidos para año, mes y día.")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
 
 def normalizar(texto):
     return texto.lower().strip()
@@ -74,7 +94,7 @@ def guardar_inventario(path, inventario):
         print(f"Error al escribir en el archivo: {e}")
         return False
 
-def try_codigo(path):
+def try_codigo():
     while True:
         codigo = input("\n¿Cual es el codigo del producto?\nCodigo a ingresar: ")
         
@@ -82,7 +102,7 @@ def try_codigo(path):
             print("\nEl código no puede estar vacío. Inténtalo de nuevo.")
             continue
 
-        inventario_actual = cargar_inventario(path)
+        inventario_actual = cargar_inventario(filepath_carga)
             
         encontrado = False
         for datos in inventario_actual:
@@ -95,7 +115,7 @@ def try_codigo(path):
         else:
             return codigo
 
-def try_nombre(path):
+def try_nombre():
     while True:
         nombre = input("\n¿Cual es el nombre del producto?\nNombre a ingresar: ")
         
@@ -103,7 +123,7 @@ def try_nombre(path):
             print("\nEl nombre no puede estar vacío. Inténtalo de nuevo.")
             continue
         
-        inventario_actual = cargar_inventario(path)
+        inventario_actual = cargar_inventario(filepath_carga)
             
         encontrado = False
         for datos in inventario_actual:
@@ -139,20 +159,20 @@ def try_float():
             print('\nEl numero es invalido, escribelo de nuevo.\n')
 
 def agregar_producto():
-    cargando(0.15, f"Accediendo al archivo: {filepath}")
+    cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
     print("\n"+ "="*5 + " Registro de producto " + "="*5)
 
-    codigo = try_codigo(filepath)
-    nombre = try_nombre(filepath)
+    codigo = try_codigo()
+    nombre = try_nombre()
     cantidad = try_int()
     costo = try_float()
 
-    inventario = cargar_inventario(filepath)
+    inventario = cargar_inventario(filepath_carga)
 
     nuevo_producto = [codigo, normalizar(nombre), str(cantidad),str(costo)]
     inventario.append(nuevo_producto)
 
-    if guardar_inventario(filepath, inventario):
+    if guardar_inventario(filepath_guardado, inventario):
         cargando(0.15, "Actualizando inventario")
         print("Producto agregado correctamente.")
     else:
@@ -162,14 +182,14 @@ def agregar_producto():
 def quitar_producto():
     ver_inventario()
 
-    inventario = cargar_inventario(filepath)
+    inventario = cargar_inventario(filepath_carga)
 
     if not inventario:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print("El inventario esta vacio, no hay productos para eliminar.\n")
         return
     
-    cargando(0.15, f"Accediendo al archivo: {filepath}")
+    cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
     codigo_a_borrar = input("Escribe el codigo del producto a borrar: ").strip()
 
     producto_eliminado = None
@@ -182,7 +202,7 @@ def quitar_producto():
             inventario_actualizado.append(datos)
 
     if producto_eliminado:
-        if guardar_inventario(filepath, inventario_actualizado):
+        if guardar_inventario(filepath_guardado, inventario_actualizado):
             nombre = producto_eliminado[1].title()
             cargando(0.15, "Actualizando inventario")
             print(f"\nEl producto '{nombre}' con codigo '{codigo_a_borrar}' ha sido eliminado con exito.")
@@ -194,10 +214,10 @@ def quitar_producto():
         print("\nNo se encontro el codigo en el inventario.\n")
 
 def ver_inventario():
-    productos = cargar_inventario(filepath)
+    productos = cargar_inventario(filepath_carga)
 
     if not productos:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print("\nEl inventario esta vacio.\n")
         return
     
@@ -220,10 +240,10 @@ def ver_inventario():
             continue
 
 def buscar_producto():
-    productos = cargar_inventario(filepath)
+    productos = cargar_inventario(filepath_carga)
 
     if not productos:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print("\nEl inventario esta vacio.\n")
         return
     
@@ -262,10 +282,10 @@ def buscar_producto():
         print(f"\nNo se encontro el codigo: {codigo_a_buscar} en el inventario.\n")
 
 def calcular_total():
-    productos = cargar_inventario(filepath)
+    productos = cargar_inventario(filepath_carga)
 
     if not productos:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print("\nEl inventario esta vacio.\n")
         return
     
@@ -293,10 +313,10 @@ def actualizar_inventario():
         print("\nOpcion no valida. Regresando al menu principal.\n")
         return
     
-    inventario = cargar_inventario(filepath)
+    inventario = cargar_inventario(filepath_carga)
     
     if not inventario:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print("El inventario esta vacio, no hay productos para actualizar.\n")
         return
     
@@ -332,7 +352,7 @@ def actualizar_inventario():
 
         inventario[indice] = nueva_linea_datos
 
-        if guardar_inventario(filepath, inventario):
+        if guardar_inventario(filepath_carga, inventario):
             cargando(0.15, "Actualizando inventario")
             print(f"\n Producto '{nombre_producto}' actualizado exitosamente.")
             print(f" El nuevo {campo_actualizado} es: {valor_actualizado}\n")
@@ -340,16 +360,16 @@ def actualizar_inventario():
             cargando(0.15, "Actualizando inventario")
             print("Error al guardar el inventario. El inventario NO fue actualizado.\n")
     else:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_carga}")
         print(f"\nNo se encontro el codigo: {codigo_a_modificar} en el inventario.\n")
 
 def generar_reporte_final():
     print("\n === Generando Reporte Final === ")
 
-    productos_data = cargar_inventario(filepath)
+    productos_data = cargar_inventario(filepath_guardado)
 
     if not productos_data:
-        cargando(0.15, f"Accediendo al archivo: {filepath}")
+        cargando(0.15, f"Accediendo al archivo: {filepath_guardado}")
         print("El inventario esta vacio. No hay datos para generar el reporte.\n")
         return
     
