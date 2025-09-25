@@ -1,6 +1,9 @@
 import os
+import time
+import datetime as dt
 
-NOMBRE_REPORTE_PROHIBIDO = "reporte_final.txt"
+dia = dt.date.today()
+NOMBRE_REPORTE_PROHIBIDO = "Reporte Final.txt"
 
 while True:
     nom_archivo_input = input("Ingrese el nombre del archivo para el inventario: ").strip()
@@ -15,7 +18,7 @@ while True:
 
     break
 
-filepath = f"{nom_archivo_input}.txt"
+filepath = f"{nom_archivo_input}-{dia.day}-{dia.month}-{dia.year}.txt" 
 
 try:
     if not os.path.exists(filepath):
@@ -31,6 +34,14 @@ except IOError as e:
 
 def normalizar(texto):
     return texto.lower().strip()
+
+def cargando(timepo = float(),palabra = str()):
+    for i in range(3):
+        for j in range(4):
+            print(f"\r{palabra}" + "." * j + " " * (3 - j), end="",flush=True)
+            time.sleep(timepo)
+    else:
+        print("\n")
 
 def cargar_inventario(path):
     inventario = []
@@ -125,6 +136,7 @@ def try_float():
             print('\nEl numero es invalido, escribelo de nuevo.\n')
 
 def agregar_producto():
+    cargando(0.15, f"Accediendo al archivo: {filepath}")
     print("\n"+ "="*5 + " Registro de producto " + "="*5)
 
     codigo = try_codigo(filepath)
@@ -138,8 +150,10 @@ def agregar_producto():
     inventario.append(nuevo_producto)
 
     if guardar_inventario(filepath, inventario):
+        cargando(0.15, "Actualizando inventario")
         print("Producto agregado correctamente.")
     else:
+        cargando(0.15, "Actualizando inventario")
         print("Error a guardar el inventario despues de agregar.")
 
 def quitar_producto():
@@ -148,9 +162,11 @@ def quitar_producto():
     inventario = cargar_inventario(filepath)
 
     if not inventario:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("El inventario esta vacio, no hay productos para eliminar.\n")
         return
     
+    cargando(0.15, f"Accediendo al archivo: {filepath}")
     codigo_a_borrar = input("Escribe el codigo del producto a borrar: ").strip()
 
     producto_eliminado = None
@@ -165,19 +181,24 @@ def quitar_producto():
     if producto_eliminado:
         if guardar_inventario(filepath, inventario_actualizado):
             nombre = producto_eliminado[1].title()
+            cargando(0.15, "Actualizando inventario")
             print(f"\nEl producto '{nombre}' con codigo '{codigo_a_borrar}' ha sido eliminado con exito.")
         else:
+            cargando(0.15, "Actualizando inventario")
             print("Error al guardar el inventario despues de eliminar.")
     else:
+        cargando(0.15, "Cargando")
         print("\nNo se encontro el codigo en el inventario.\n")
 
 def ver_inventario():
     productos = cargar_inventario(filepath)
 
     if not productos:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("\nEl inventario esta vacio.\n")
         return
     
+    cargando(0.25, "Cargando inventario")
     print("=" * 100)
     print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
     print("=" * 100)
@@ -199,9 +220,11 @@ def buscar_producto():
     productos = cargar_inventario(filepath)
 
     if not productos:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("\nEl inventario esta vacio.\n")
         return
     
+    cargando(0.25, "Buscando codigos")
     print("="* 30)
     print("{:^30}".format("Codigos Disponibles"))
     print("="* 30)
@@ -217,6 +240,7 @@ def buscar_producto():
         if codigo_a_buscar == datos[0]:
             encontrado = True
 
+            cargando(0.15, "Buscando codigo")
             print("=" * 100)
             print("{:^25} {:^25} {:^20} {:^10} {:^12}".format("Codigo", "Producto", "Cantidad", "Precio", "Total"))
             print("=" * 100)
@@ -231,12 +255,14 @@ def buscar_producto():
             break
 
     if not encontrado:
+        cargando(0.15, "Cargando")
         print(f"\nNo se encontro el codigo: {codigo_a_buscar} en el inventario.\n")
 
 def calcular_total():
     productos = cargar_inventario(filepath)
 
     if not productos:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("\nEl inventario esta vacio.\n")
         return
     
@@ -249,10 +275,12 @@ def calcular_total():
         except (ValueError, IndexError):
             continue
     
+    cargando(0.25, "Calculando valores")
     print(f"{"="*100}\nEl valor total de los productos en el inventario es: ${total_general:.2f}\n{"="*100}\n")
 
 def actualizar_inventario():
     ver_inventario()
+    cargando(0.15, "Validando opciones")
     print("\n=====================\n¿Que desea actualizar?")
     print("1. Actualizar cantidad.")
     print("2. Actualizar precio.")
@@ -265,6 +293,7 @@ def actualizar_inventario():
     inventario = cargar_inventario(filepath)
     
     if not inventario:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("El inventario esta vacio, no hay productos para actualizar.\n")
         return
     
@@ -301,11 +330,14 @@ def actualizar_inventario():
         inventario[indice] = nueva_linea_datos
 
         if guardar_inventario(filepath, inventario):
+            cargando(0.15, "Actualizando inventario")
             print(f"\n Producto '{nombre_producto}' actualizado exitosamente.")
             print(f" El nuevo {campo_actualizado} es: {valor_actualizado}\n")
         else:
+            cargando(0.15, "Actualizando inventario")
             print("Error al guardar el inventario. El inventario NO fue actualizado.\n")
     else:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print(f"\nNo se encontro el codigo: {codigo_a_modificar} en el inventario.\n")
 
 def generar_reporte_final():
@@ -314,6 +346,7 @@ def generar_reporte_final():
     productos_data = cargar_inventario(filepath)
 
     if not productos_data:
+        cargando(0.15, f"Accediendo al archivo: {filepath}")
         print("El inventario esta vacio. No hay datos para generar el reporte.\n")
         return
     
@@ -359,12 +392,14 @@ def generar_reporte_final():
                     producto["sub_total"]
                 ))
                 report_file.write("=" * 100 + "\n")
+        cargando(0.15, "Cargando")
         print(f"Reporte generado exitosamente en el archivo: {report_path}\n")
     except IOError as e:
         print(f"Error al generar el reporte: {e}\n")
 
 def menu():        
     while True:
+        cargando(0.15, "Cargando menu")
         print("\n === Menú ===")
         print("1. Agregar producto a inventario.")
         print("2. Quitar producto de inventario.")
