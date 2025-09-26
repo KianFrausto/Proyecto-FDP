@@ -68,20 +68,56 @@ def cargando(timepo = float(),palabra = str()):
 
 def cargar_inventario(path):
     inventario = []
+    lineas_invalidas = []  # Guardamos las líneas con errores
+
     try:
         with open(path, "r") as file:
-            for linea in file:
+            for num_linea, linea in enumerate(file, start=1):
                 try:
                     datos = [c.strip() for c in linea.split(",")]
                     if len(datos) == 4:
                         inventario.append(datos)
-                except:
-                    continue
+                    elif len(datos) < 4:
+                        print(f"Advertencia: En la línea {num_linea} tiene valores menores a 4. Se omitió.")
+                        lineas_invalidas.append(num_linea)
+                    elif len(datos) > 4:
+                        print(f"Advertencia: En la línea {num_linea} tiene valores mayores a 4. Se omitió.")
+                        lineas_invalidas.append(num_linea)
+                except Exception as e:
+                    print(f"Error en la línea {num_linea}: {e}. Línea omitida.")
+                    lineas_invalidas.append(num_linea)
+
+        if lineas_invalidas: # Preguntar que hacer en caso de lineas invalidas
+            print("\nSe encontraron líneas con errores en el archivo:")
+            print("Línea inválida:", ", ".join(map(str, lineas_invalidas)))
+
+            opcion = input("¿Desea eliminarlas del archivo? (s/n): ").strip().lower()
+            if opcion == "s":
+                try:
+                    with open(path, "r") as file:
+                        lineas = file.readlines()
+
+                    # Filtrar las líneas válidas
+                    lineas_corregidas = [
+                        linea for i, linea in enumerate(lineas, start=1)
+                        if i not in lineas_invalidas
+                    ]
+
+                    with open(path, "w") as file: # Reescribir el archivo sin las inválidas
+                        file.writelines(lineas_corregidas)
+
+                    print(f"Se eliminaron {len(lineas_invalidas)} línea(s) inválida(s) del archivo '{path}'.")
+                except IOError as e:
+                    print(f"Error al intentar reescribir el archivo: {e}")
+            else:
+                print("Se mantuvieron las líneas inválidas en el archivo.")
+
     except FileNotFoundError:
         return []
     except IOError as e:
         print(f"Advertencia: Error al leer el archivo. {e}")
         return []
+
     return inventario
 
 def guardar_inventario(path, inventario):
