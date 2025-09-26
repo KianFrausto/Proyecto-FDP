@@ -47,7 +47,11 @@ ellos.
 ## Reglas de Validacion de Datos de Entrada
 - Cantidad No Negativa: La cantidad de cualquier producto no peude ser un número negativo (debe ser ≥0). (try_int())
 - Costo No Negativo: El costo individual de un producto no peude ser un número negativo (debe ser ≥0). (try_float())
-- Campos Requeridos
+- Campos Requeridos (Código y Nombre): El código y el nombre de un producto no pueden estar vacios al ingresarse. (try_codigo(), try_nombre())
+- Formato de inventario: Cada registro de un producto debe contener exactamente 4 campos (código, nombre, cantidad, costo). (cargar_inventario())
+## Reglas de Nomeclatura y Restricciones de Archivos
+- Formato de Archivo de Inventario: El nombre de un archivo de inventario de seguir el formato. "[nombre_input]-[día]-[mes]-[año].txt". (Lógica principal del while True)
+-
 # Requerimientos Funcionales
 Los requerimientos funcionales que el programa requiere son:
 - Proporcionar de manera correcta los materiales que se tienen en
