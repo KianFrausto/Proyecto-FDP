@@ -68,50 +68,39 @@ def cargando(timepo = float(),palabra = str()):
 
 def cargar_inventario(path):
     inventario = []
-    lineas_invalidas = []  # Guardamos las líneas con errores
+    lineas_invalidas = []
+    lineas_originales = []
 
     try:
         with open(path, "r") as file:
             for num_linea, linea in enumerate(file, start=1):
+                lineas_originales.append(linea)
                 try:
                     datos = [c.strip() for c in linea.split(",")]
                     if len(datos) == 4:
                         inventario.append(datos)
-                    elif len(datos) < 4:
-                        print(f"Advertencia: En la línea {num_linea} tiene valores menores a 4. Se omitió.")
-                        lineas_invalidas.append(num_linea)
-                    elif len(datos) > 4:
-                        print(f"Advertencia: En la línea {num_linea} tiene valores mayores a 4. Se omitió.")
+                    else:
+                        print(f"Advertencia: Línea {num_linea} inválida. Se omitió en la carga.")
                         lineas_invalidas.append(num_linea)
                 except Exception as e:
                     print(f"Error en la línea {num_linea}: {e}. Línea omitida.")
                     lineas_invalidas.append(num_linea)
 
-        if lineas_invalidas: # Preguntar que hacer en caso de lineas invalidas
-            print("\nSe encontraron líneas con errores en el archivo:")
-            print("Línea inválida:", ", ".join(map(str, lineas_invalidas)))
+        if lineas_invalidas:
+            print("\nSe encontraron líneas con errores:")
+            print("Líneas inválidas:", ", ".join(map(str, lineas_invalidas)))
 
             opcion = input("¿Desea eliminarlas del archivo? (s/n): ").strip().lower()
             if opcion == "s":
-                try:
-                    with open(path, "r") as file:
-                        lineas = file.readlines()
-
-                    # Filtrar las líneas válidas
-                    lineas_corregidas = [
-                        linea for i, linea in enumerate(lineas, start=1)
-                        if i not in lineas_invalidas
-                    ]
-
-                    with open(path, "w") as file: # Reescribir el archivo sin las inválidas
-                        file.writelines(lineas_corregidas)
-
-                    print(f"Se eliminaron {len(lineas_invalidas)} línea(s) inválida(s) del archivo '{path}'.")
-                except IOError as e:
-                    print(f"Error al intentar reescribir el archivo: {e}")
+                with open(path, "w") as file:
+                    for i, linea in enumerate(lineas_originales, start=1):
+                        if i not in lineas_invalidas:
+                            file.write(linea)
+                print(f"Se eliminaron {len(lineas_invalidas)} líneas inválidas.")
             else:
                 print("Se mantuvieron las líneas inválidas en el archivo.")
-
+                for i in lineas_invalidas:
+                    inventario.append([lineas_originales[i-1].strip(), "", "", ""])
     except FileNotFoundError:
         return []
     except IOError as e:
@@ -492,5 +481,3 @@ def menu():
 
 if __name__ == "__main__":
     menu()
-
-#460
