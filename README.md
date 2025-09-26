@@ -35,11 +35,10 @@ ellos.
 
 ## Criterios de exito
 - El programa debe permitir la captura de datos de manera sencilla y sin errores.
--La lista de inventario debe mostrarse de forma clara y organizada.
+- La lista de inventario debe mostrarse de forma clara y organizada.
 - El cálculo del costo total de los materiales debe ser preciso.
 - El sistema debe ser fácil de usar para cualquier usuario sin necesidad de conocimientos avanzados de programación.
 - El programa debe permitir actualizar, añadir o reducir materiales en el inventario sin afectar los registros previos.
-
 # Reglas del negocio
 ## Reglas de identificación de productos (Unicidad)
 - Código Único: El codigo de un producto no debe existir previamente en el inventario al integrar registrar uno nuevo. (try_codigo)
@@ -58,15 +57,30 @@ ellos.
 - Cálculo del Total: El valor total de un producto es el resultado de multiplicar la cantidad por el costo unitario (cantidad * precio). (ver_inventario(), calcular_total(), generar_reporte_final())
 - Persistencia del Inventario: Las modificaciones (agregar, quitar, actualizar) siempre se aplican y guardan en el filepath_guardado (el archivo con la fecha de hoy), incluso si se cargó un archivo antiguo (filepath_cargar). (agregar_producto(), quitar_producto(), actualizar_inventario())
 # Requerimientos Funcionales
-Los requerimientos funcionales que el programa requiere son:
-- Proporcionar de manera correcta los materiales que se tienen en
-inventario.
-- Mostrar la lista de materiales.
-- Enlistar los datos generales de los materiales de la lista (Nombre, tipo, costo, cantidad).
-- Mostrar los precios por unidad de los materiales con los que se cuentan.
-- Calcular el costo total de los materiales.
-- Limitarse a las opciones del menu y señalar el no apego a ellas por parte del usuario.
-
+## Requisitos funcionales del Sistema de Inventario
+### Gestión de Archivos y Configuración Inicial
+1. Carga/Selección de Archivo: El sistema debe permitir al usuario ingresar el nombre de un archivo de inventario y, opcionalmente, una fecha para buscar un archivo de inventario histórico.
+2. Creación de Archivo: Si el archivo solicitado para cargar no existe, el sistema debe crear un nuevo archivo de inventario para guardar los cambios, utilizando el nombre de archivo base provisto por el usuario y la fecha actual.
+3. Detección de Archivo Prohibido: El sistema debe impedir que el usuario use el nombre del reporte final del día actual (Reporte Final-d-m-a.txt) como el nombre base para el archivo de inventario.
+4. Carga de Datos: El sistema debe poder leer y parsear los datos de un archivo de inventario (separados por comas) y cargarlos en la memoria para su procesamiento.
+### Funcionalidades del CRUD (Crear, Leer, Actualizar, Borrar)
+1. Agregar Producto: El sistema debe permitir al usuario ingresar un nuevo producto, solicitando su código, nombre, cantidad y costo unitario.
+- Validación de Unicidad: Debe verificar que el código y el nombre del producto no existan ya en el inventario.
+2. Quitar Producto: El sistema debe permitir al usuario eliminar un producto del inventario buscando su código único.
+4. Ver Inventario: El sistema debe mostrar un listado completo de todos los productos en el inventario, incluyendo: Código, Producto, Cantidad, Precio Unitario y el Total de su valor (Cantidad × Precio).
+5. Buscar Producto: El sistema debe permitir al usuario buscar y mostrar los detalles de un producto específico, identificándolo por su código. 
+- Actualizar Producto: El sistema debe permitir modificar los datos de un producto existente.
+### Procesamiento y Reportes
+1. Cálculo del Valor Total: El sistema debe calcular y mostrar la suma del valor de todo el inventario (la sumatoria de Cantidad × Costo para todos los productos).
+2. Generación de Reporte Final: El sistema debe ser capaz de generar un archivo de texto de reporte (Reporte Final-d-m-a.txt) que contenga:
+- Número total de productos únicos.
+- Valor total del inventario.
+- Una tabla detallada con el Código, Nombre, Cantidad, Costo y Sub-Total por cada producto.
+### Interacción con el Usuario
+1. Menú de Opciones: El sistema debe presentar un menú con las opciones para acceder a cada una de las funcionalidades descritas.
+2. Manejo de Errores en Entrada: El sistema debe manejar errores de ValueError (como ingresar texto donde se espera un número) y solicitar la reintroducción de datos.
+3. Validación de Rangos: El sistema debe rechazar entradas inválidas como cantidades o costos negativos.
+4. Retroalimentación: El sistema debe mostrar mensajes de carga y éxito (cargando()) para indicar al usuario que las operaciones se están llevando a cabo.
 # Diseño de entradas y salidas
 Diseño de entradas y salidas:
 Entradas:
