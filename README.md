@@ -51,7 +51,12 @@ ellos.
 - Formato de inventario: Cada registro de un producto debe contener exactamente 4 campos (código, nombre, cantidad, costo). (cargar_inventario())
 ## Reglas de Nomeclatura y Restricciones de Archivos
 - Formato de Archivo de Inventario: El nombre de un archivo de inventario de seguir el formato. "[nombre_input]-[día]-[mes]-[año].txt". (Lógica principal del while True)
--
+- Restricción de Nombre de Archivo de Reporte: No se permite usar el nombre "Reporte Final" de hoy (Reporte Final-d-m-a.txt) como nombre base para un archivo de inventario. (Lógica principal del while True (uso de NOMBRE_REPORTE_PROHIBIDO))
+- Normalización del Nombre de Archivo Prohibido: La restricción del nombre del archivo de reporte final aplica sin importar si el usuario usa mayúsculas o minúsculas (.lower()). (Lógica principal del while True)
+## Reglas de Operación y Procesamiento
+- Guardado de Datos: Los productos se guardan en el archivo con el nombre normalizado (minúsculas y sin espacios, excepto el codigo que no s normaliza). (agregar_productos()(usa normalizar()))
+- Cálculo del Total: El valor total de un producto es el resultado de multiplicar la cantidad por el costo unitario (cantidad * precio). (ver_inventario(), calcular_total(), generar_reporte_final())
+- Persistencia del Inventario: Las modificaciones (agregar, quitar, actualizar) siempre se aplican y guardan en el filepath_guardado (el archivo con la fecha de hoy), incluso si se cargó un archivo antiguo (filepath_cargar). (agregar_producto(), quitar_producto(), actualizar_inventario())
 # Requerimientos Funcionales
 Los requerimientos funcionales que el programa requiere son:
 - Proporcionar de manera correcta los materiales que se tienen en
