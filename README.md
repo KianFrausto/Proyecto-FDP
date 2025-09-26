@@ -41,12 +41,13 @@ ellos.
 - El programa debe permitir actualizar, añadir o reducir materiales en el inventario sin afectar los registros previos.
 
 # Reglas del negocio
-- Todos los materiales deben registrarse con nombre, cantidad y costo obligatoriamente.
-- No se permitirá dejar campos vacíos en el registro de materiales.
-- El costo total se calculará automáticamente a partir de los datos ingresados, sin modificaciones manuales.
-- El usuario solo podrá interactuar mediante las opciones que muestre el menú.
-- Los materiales deben mostrarse siempre en la lista antes de realizar cualquier modificación o consulta.
-
+## Reglas de identificación de productos (Unicidad)
+- Código Único: El codigo de un producto no debe existir previamente en el inventario al integrar registrar uno nuevo. (try_codigo)
+- Nombre Único (ignorando mayusculas): El nombre de un producto (sin importar mayúsculas/minúsculas o espacios iniciales/finales) no debe existir previamente en el inventario al registrar uno nuevo. (try_nombre(), normalizar())
+## Reglas de Validacion de Datos de Entrada
+- Cantidad No Negativa: La cantidad de cualquier producto no peude ser un número negativo (debe ser ≥0). (try_int())
+- Costo No Negativo: El costo individual de un producto no peude ser un número negativo (debe ser ≥0). (try_float())
+- Campos Requeridos
 # Requerimientos Funcionales
 Los requerimientos funcionales que el programa requiere son:
 - Proporcionar de manera correcta los materiales que se tienen en
@@ -90,34 +91,34 @@ Semana 1:
 GitHub (Todos)
 
 Semana 2:
-- [-] Realización del pseudo-codigo para integración
+- [✓] Realización del pseudo-codigo para integración
 completa del proyecto a realizar. (Senior)
-- [-] Actualización a una versión principal del código con
+- [✓] Actualización a una versión principal del código con
 funciones completas. (Mids)
-- [-] Verificación del código base en busca de posibles
+- [✓] Verificación del código base en busca de posibles
 errores y optimización de entradas y salidas. (Juniors)
-- [-] Validación de las ramas creadas para su integración
+- [✓] Validación de las ramas creadas para su integración
 dentro del código principal. (Senior)
 
 Semana 3:
-- [-] Realización de actualizaciones dentro del programa
+- [✓] Realización de actualizaciones dentro del programa
 para futuras versiones. (Mids)
-- [-] Ajustar variables y validación de las funciones nuevas
+- [✓] Ajustar variables y validación de las funciones nuevas
 del programa. (Juniors)
-- [-] Ajuste de ramas nuevas para validación de las
+- [✓] Ajuste de ramas nuevas para validación de las
 funciones dentro de la rama principal y validar un
 funcionamiento correcto. (Senior)
 
 Semana 4:
-- [-] Reajuste de nuevos comandos para parches dentro de
+- [✓] Reajuste de nuevos comandos para parches dentro de
 las versiones anteriores. (Mids)
-- [-] Simplificar funciones dentro del código para un
+- [✓] Simplificar funciones dentro del código para un
 funcionamiento más optimo. (Junior)
-- [-] Integración para una versión final del código. (Senior)
+- [✓] Integración para una versión final del código. (Senior)
 
 Semana 5:
-- [-] Ultimas actualizaciones dentro del programa. (Mids)
-- [-] Revisión a detalle del código completo por posibles
+- [✓] Ultimas actualizaciones dentro del programa. (Mids)
+- [✓] Revisión a detalle del código completo por posibles
 errores en el código. (Juniors)
-- [-] Entrega del código en una fase completa lista para su
+- [✓] Entrega del código en una fase completa lista para su
 ejecución sin errores. (Senior)
