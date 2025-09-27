@@ -82,28 +82,44 @@ ellos.
 3. Validación de Rangos: El sistema debe rechazar entradas inválidas como cantidades o costos negativos.
 4. Retroalimentación: El sistema debe mostrar mensajes de carga y éxito (cargando()) para indicar al usuario que las operaciones se están llevando a cabo.
 # Diseño de entradas y salidas
-Diseño de entradas y salidas:
-Entradas:
-- Nombre del material
-- Tipo que especifica el material
-- Cantidad del material
-- Costo del material
-- Valores correctos de los materiales (Nombre,
-cantidad y costo)
-- Guardar los datos ingresados
-- Opciones de cancelar el programa
-Salidas:
-- Listado de nombre, tipo de material, cantidad y costo
-de cada uno
-- Cotizar el costo total de todos los materiales
-- Mostrar mensajes en caso de ingresar valores no
-permitidos
-- Volver a solicitar valores en caso de errores
-
+## Diseño de Entradas (Inputs)
+Las entradas son los datos que el sistema consume, ya sea provistos por el usuario o cargados desde un archivo.
+1. Entrada de Archivo (Persistencia de Datos)
+El sistema espera que los archivos de inventario (*.txt) sigan un formato CSV plano (valores separados por comas), donde cada linea reoresenta un producto.
+- Estructura de Línea: "[Código],[Nombre],[Cantidad],[Costo]". (Debe tener exactamente 4 campos por línea)
+- Separador: Coma(,). El sistema usa linea.split(",") para parsear
+- Ejemplo: A123,Laptop,5,12500.50
+2. Entrada de Usuario (Consola)
+Las Entradas del usuario son dinámicos y se capturan a través de la función input(). El sistema aplica validaciones estrictas a cada una.
+- Nombre de Archivo Base: Cadena de texto. (Se usa para construir el nombre del archivo de inventario)
+- Fecha de Búsqueda: Tres cadenas(YYYY.MM.DD). (Se convierten a int y a un objeto datetime.date. Acepta estar vacio para usar la fecha actual)
+- Codigo del Producto: Cadena de texto (identificador unico). (try_codigo(). No puede ser un espacio vacio)
+- Nombre del Producto: Cadena de texto. (try_nombre(). No puede ser  un espacio vacio)
+- Cantidad: Numero entero (≥0). (try_int(). No puede ser negativo.)
+- Costo: Numero decimal (>0). (try_float(). No puede ser negativo ni igual a cero.)
+- Opciones del Menu: Un digito del 1 al 8. (menu())
+## Diseño de Salidas (Outpots)
+Las salidas son los datos que el sistema produce, mostrados al usuario (consola) o escritos en archivos (reportes).
+1. Salida de Archivo (Persistencia y Reporte)
+El sistema genera dos tipos de archivos de salida:
+A. Archivo de inventario (Guardado)
+Este Archivo utiliza exactamente el mismo formato de entrada para la persistencia de datos.
+- Estructura de Linea: "[Código],[nombre_normalizado],[cantidad_str],[costo_str]\n". (Almacenamiento directo del inventario para futuras cargas)
+- Nombre de Archivo: "[nombre_input]-[día]-[mes]-[año_actual].txt". (Usado por guardar_inventario())
+B. Archivo de Reporte Final
+El reporte final tiene una estructura de encabezado y una tabla detallada, diseñado para ser legible por un humano.
+- Nombre de Archivo: "Reporte Final-[día]-[mes]-[año_actual].txt"
+- Encabezado: Texto con el total de productos y valor total. (Valor total del inventario: $155000.00)
+- Tabla de Productos: Lineas con formato fijo para alineacion. ("{:^25} {:^25} {:^20} ${:^9.2f} ${:^11.2f}\n")
+2. Salida a Consola (Interfaz de Usuario)
+La salida en consola se utiliza para la interaccion, la retroalimentacion y la visualizacion de datos.
+- Menus: Texto simple con opciones numeradas. (menu())
+- Mensajes de Carga: Animacion de puntos(...) con \r para dar la sencasion de procesamiento. (cargando())
+- Errores/Validaciones: Mensajes de texto directo que informan por que fallo la entrada o la operacion. (try...except en funcion de captura)
+- Tabla de Inventario: Tabla ASCII con alineacion centrada ({:^...}). Muestra las columnas: Código, Producto (Título), Cantidad, Precio, y Total. (ver_inventario(), buscar_producto())
+Resultado Total: Texto simple que muestra el valor total del inventario. (calcular_total())
 # Diagrama de flujo
-
 ![Imagen_ALT](https://github.com/KianFrausto/Proyecto-FDP/blob/5fdb9eaf53f92f6752952d22de63def9588e3a54/docs/Inventario.png)
-
 # Plan de trabajo
 Semana 1:
 - [✓] Planteamiento del problema a realizar. (Todos)
